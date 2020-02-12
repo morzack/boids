@@ -150,10 +150,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b6a156fbf9c1a4f99241305ccdbb00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boidCount: 10
+  boidCount: 31
   boidPrefab: {fileID: 2605185040178587719, guid: 4f28b85201dbd3f478ec7fdd00074ceb,
     type: 3}
-  boidScatteringRadius: 5
+  boidScatteringRadius: 1.62
 --- !u!4 &473664619
 Transform:
   m_ObjectHideFlags: 0

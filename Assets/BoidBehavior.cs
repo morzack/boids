@@ -16,6 +16,7 @@ public class BoidBehavior : MonoBehaviour
     public float movementAmount = 100;
 
     public float distanceKeeping = 1;
+    public float distanceKeepingModifier = .5f;
     public float matchingVelocityModifier = 8;
 
     public float timeScale = 10000;
@@ -35,13 +36,13 @@ public class BoidBehavior : MonoBehaviour
         Vector3 velocity = this.rb.velocity;
 
         // Rule 1
-        velocity += Rule1(boidBuddies) / movementAmount / timeScale;
+        velocity += Rule1(boidBuddies) * movementAmount / timeScale;
 
         // Rule 2
-        velocity += Rule2(boidBuddies) / timeScale;
+        velocity += Rule2(boidBuddies) * distanceKeepingModifier / timeScale;
 
         // Rule 3
-        velocity += Rule3(boidBuddies) / matchingVelocityModifier / timeScale;
+        velocity += Rule3(boidBuddies) * matchingVelocityModifier / timeScale;
 
         rb.velocity = velocity;
     }
@@ -57,7 +58,7 @@ public class BoidBehavior : MonoBehaviour
         foreach (Transform t in boidBuddies) {
             float distance = Vector3.Distance(transform.position, t.position);
             if (distance < distanceKeeping) {
-                vel = vel - (transform.position - t.position);
+                vel += transform.position - t.position;
             }
         }
         return vel;
@@ -69,8 +70,8 @@ public class BoidBehavior : MonoBehaviour
             Vector3 otherVelocity = t.gameObject.GetComponent<Rigidbody>().velocity;
             vel += otherVelocity;
         }
-        vel -= rb.velocity;
         vel /= boidBuddies.Count;
+        vel -= rb.velocity;
         return vel;
     }
 
@@ -81,7 +82,7 @@ public class BoidBehavior : MonoBehaviour
         for (int i=0; i<parentBoid.childCount; i++) {
             Transform child = parentBoid.GetChild(i);
             float distance = Vector3.Distance(transform.position, child.position);
-            if (distance <= radius && !transform.Equals(child)) {
+            if (distance <= radius && distance > 0) {
                 boidList.Add(child);
             }
         }
@@ -90,7 +91,7 @@ public class BoidBehavior : MonoBehaviour
     }
 
     Vector3 GetCentroid(List<Transform> transforms) {
-        Vector3 centroid = transform.position;
+        Vector3 centroid = new Vector3(0, 0, 0);
         foreach (Transform otherTransform in transforms) {
             centroid += otherTransform.position;
         }

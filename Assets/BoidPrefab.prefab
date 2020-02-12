@@ -45,7 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9307382271e5ebf42b9f15dcf484049b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visibilityRadius: 7.09
+  visibilityRadius: 2.95
+  movementAmount: 0.52
+  distanceKeeping: 1.88
+  distanceKeepingModifier: 0.67
+  matchingVelocityModifier: 36.4
+  timeScale: 100
 --- !u!54 &-6151686217128597660
 Rigidbody:
   m_ObjectHideFlags: 0
