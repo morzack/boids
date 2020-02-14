@@ -91,7 +91,9 @@ public class BoidBehavior : MonoBehaviour
             Vector3 otherVelocity = t.gameObject.GetComponent<Rigidbody>().velocity;
             vel += otherVelocity;
         }
-        vel /= boidBuddies.Count;
+        if (boidBuddies.Count > 0) {
+            vel /= boidBuddies.Count;
+        }
         return (vel - this.rb.velocity);
     }
 
@@ -99,7 +101,7 @@ public class BoidBehavior : MonoBehaviour
         Vector3 vel = new Vector3(0, 0, 0);
         foreach (Vector3 v in terrainCollisions) {
             float distance = Vector3.Distance(transform.position, v);
-            vel -= (v - transform.position) * distanceKeepingTerrainModifier / (distance/distanceKeepingTerrain);
+            vel -= (v - transform.position) * (distanceKeepingTerrainModifier/(distance!=0?distance:0.00001f));
         }
         return vel;
     }
@@ -137,7 +139,11 @@ public class BoidBehavior : MonoBehaviour
         foreach (Transform otherTransform in transforms) {
             centroid += otherTransform.position;
         }
-        centroid /= transforms.Count;
+        if (transforms.Count > 0) {
+            centroid /= transforms.Count;
+        } else {
+            centroid = transform.position;
+        }
         return centroid;
     }
 

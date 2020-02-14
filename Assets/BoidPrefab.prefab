@@ -45,14 +45,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9307382271e5ebf42b9f15dcf484049b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visibilityRadius: 5.06
+  visibilityRadius: 1.92
   movementAmount: 0.06
-  distanceKeeping: 0.13
-  distanceKeepingModifier: 0.06
+  distanceKeeping: 0.19
+  distanceKeepingModifier: 0.18
   matchingVelocityModifier: 0.0075
-  distanceKeepingTerrain: 0.03
-  distanceKeepingTerrainModifier: 0.16
-  timeScale: 0.45
+  distanceKeepingTerrain: 0.8
+  distanceKeepingTerrainModifier: 0.08
+  timeScale: 0.58
   environmentParent: {fileID: 0}
 --- !u!54 &-6151686217128597660
 Rigidbody:
