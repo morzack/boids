@@ -50,7 +50,10 @@ MonoBehaviour:
   distanceKeeping: 0.13
   distanceKeepingModifier: 0.06
   matchingVelocityModifier: 0.0075
-  timeScale: 0.37
+  distanceKeepingTerrain: 0.03
+  distanceKeepingTerrainModifier: 0.16
+  timeScale: 0.45
+  environmentParent: {fileID: 0}
 --- !u!54 &-6151686217128597660
 Rigidbody:
   m_ObjectHideFlags: 0
