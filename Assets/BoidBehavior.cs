@@ -29,6 +29,11 @@ public class BoidBehavior : MonoBehaviour
         this.rb = gameObject.GetComponent<Rigidbody>();
     }
 
+    void Update()
+    {
+        transform.rotation = Quaternion.LookRotation(rb.velocity);
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
