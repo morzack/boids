@@ -13,6 +13,10 @@ public class BoidBehavior : MonoBehaviour
 {
     public float visibilityRadius = 3;
 
+    public bool rule1 = true;
+    public bool rule2 = true;
+    public bool rule3 = true;
+
     public float movementAmount = 100;
 
     public float distanceKeeping = 1;
@@ -54,13 +58,19 @@ public class BoidBehavior : MonoBehaviour
         Vector3 velocity = new Vector3(0, 0, 0);
 
         // Rule 1
-        velocity += Rule1(boidBuddies) * movementAmount / timeScale;
+        if (rule1) {
+            velocity += Rule1(boidBuddies) * movementAmount / timeScale;
+        }
 
         // Rule 2
-        velocity += Rule2(boidBuddies) / timeScale;
+        if (rule2) {
+            velocity += Rule2(boidBuddies) / timeScale;
+        }
 
         // Rule 3
-        velocity += Rule3(boidBuddies) * matchingVelocityModifier / timeScale;
+        if (rule3) {
+            velocity += Rule3(boidBuddies) * matchingVelocityModifier / timeScale;
+        }
 
         // Avoid terrain
         velocity += AvoidTerrainCollision(terrainPoints) / timeScale;
