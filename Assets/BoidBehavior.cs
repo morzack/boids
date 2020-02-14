@@ -19,14 +19,23 @@ public class BoidBehavior : MonoBehaviour
     public float distanceKeepingModifier = .5f;
     public float matchingVelocityModifier = 8;
 
+    public float distanceKeepingTerrain = 1;
+    public float distanceKeepingTerrainModifier = 1;
+
     public float timeScale = 10000;
 
     private Rigidbody rb;
+
+    public Transform environmentParent;
+
+    private List<Vector3> terrainPointsGizmo;
 
     // Start is called before the first frame update
     void Start()
     {
         this.rb = gameObject.GetComponent<Rigidbody>();
+
+        this.terrainPointsGizmo = new List<Vector3>();
     }
 
     void Update()
@@ -38,6 +47,10 @@ public class BoidBehavior : MonoBehaviour
     void FixedUpdate()
     {
         List<Transform> boidBuddies = GetBoidsInRadius(visibilityRadius);
+
+        List<Vector3> terrainPoints = GetEnvironmentInRadius(visibilityRadius);
+        this.terrainPointsGizmo = terrainPoints;
+
         Vector3 velocity = new Vector3(0, 0, 0);
 
         // Rule 1
@@ -48,6 +61,9 @@ public class BoidBehavior : MonoBehaviour
 
         // Rule 3
         velocity += Rule3(boidBuddies) * matchingVelocityModifier / timeScale;
+
+        // Avoid terrain
+        velocity += AvoidTerrainCollision(terrainPoints) / timeScale;
 
         this.rb.velocity += velocity;
 
@@ -79,6 +95,15 @@ public class BoidBehavior : MonoBehaviour
         return (vel - this.rb.velocity);
     }
 
+    Vector3 AvoidTerrainCollision(List<Vector3> terrainCollisions) {
+        Vector3 vel = new Vector3(0, 0, 0);
+        foreach (Vector3 v in terrainCollisions) {
+            float distance = Vector3.Distance(transform.position, v);
+            vel -= (v - transform.position) * distanceKeepingTerrainModifier / (distance/distanceKeepingTerrain);
+        }
+        return vel;
+    }
+
     List<Transform> GetBoidsInRadius(float radius) {
         List<Transform> boidList = new List<Transform>();
 
@@ -92,6 +117,19 @@ public class BoidBehavior : MonoBehaviour
         }
 
         return boidList;
+    }
+
+    List<Vector3> GetEnvironmentInRadius(float radius) {
+        List<Vector3> environmentList = new List<Vector3>();
+        for (int i=0; i<environmentParent.childCount; i++) {
+            Transform child = environmentParent.GetChild(i);
+            Collider otherCollider = child.GetComponent<Collider>();
+            Vector3 collisionPoint = otherCollider.ClosestPoint(transform.position); 
+            if (Vector3.Distance(transform.position, collisionPoint) < radius) {
+                environmentList.Add(collisionPoint);
+            }
+        }
+        return environmentList;
     }
 
     Vector3 GetCentroid(List<Transform> transforms) {
@@ -119,5 +157,10 @@ public class BoidBehavior : MonoBehaviour
         List<Transform> boidBuddies = GetBoidsInRadius(visibilityRadius);
         Vector3 centerBoids = GetCentroid(boidBuddies);
         Gizmos.DrawSphere(centerBoids, .2f);
+
+        // draw collisions with terrain
+        foreach (Vector3 v in this.terrainPointsGizmo) {
+            Gizmos.DrawSphere(v, .1f);
+        }
     }
 }
