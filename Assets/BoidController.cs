@@ -7,6 +7,7 @@ public class BoidController : MonoBehaviour
     public int boidCount = 50;
     public GameObject boidPrefab;
     public float boidScatteringRadius = 2; // we'll uniformly scatter boids in a shere of this size around the controller
+    public float boidVelocityModifier = 3;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,7 @@ public class BoidController : MonoBehaviour
             
             GameObject createdBoid = Instantiate(boidPrefab, position, rotation);
             createdBoid.transform.parent = transform;
+            createdBoid.GetComponent<Rigidbody>().velocity = Random.insideUnitSphere * boidVelocityModifier;
         }
     }
 

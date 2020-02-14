@@ -38,18 +38,20 @@ public class BoidBehavior : MonoBehaviour
     void FixedUpdate()
     {
         List<Transform> boidBuddies = GetBoidsInRadius(visibilityRadius);
-        Vector3 velocity = this.rb.velocity;
+        Vector3 velocity = new Vector3(0, 0, 0);
 
         // Rule 1
         velocity += Rule1(boidBuddies) * movementAmount / timeScale;
 
         // Rule 2
-        velocity += Rule2(boidBuddies) * distanceKeepingModifier / timeScale;
+        velocity += Rule2(boidBuddies) / timeScale;
 
         // Rule 3
         velocity += Rule3(boidBuddies) * matchingVelocityModifier / timeScale;
 
-        rb.velocity = velocity;
+        this.rb.velocity += velocity;
+
+        transform.eulerAngles = this.rb.velocity;
     }
 
     Vector3 Rule1(List<Transform> boidBuddies) {
@@ -62,9 +64,7 @@ public class BoidBehavior : MonoBehaviour
         Vector3 vel = new Vector3(0, 0, 0);
         foreach (Transform t in boidBuddies) {
             float distance = Vector3.Distance(transform.position, t.position);
-            if (distance < distanceKeeping) {
-                vel += transform.position - t.position;
-            }
+            vel -= (t.position - transform.position) * distanceKeepingModifier / (distance/distanceKeeping);
         }
         return vel;
     }
@@ -76,8 +76,7 @@ public class BoidBehavior : MonoBehaviour
             vel += otherVelocity;
         }
         vel /= boidBuddies.Count;
-        vel -= rb.velocity;
-        return vel;
+        return (vel - this.rb.velocity);
     }
 
     List<Transform> GetBoidsInRadius(float radius) {
