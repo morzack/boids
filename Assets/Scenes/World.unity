@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.446123, g: 0.49588865, b: 0.57452565, a: 1}
+  m_IndirectSpecularColor: {r: 0.44612348, g: 0.49588943, b: 0.574527, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -484,8 +484,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boidCount: 93
-  boidPrefab: {fileID: 2605185040178587719, guid: 982b2c8674c4ec1419181e9760025019,
+  goodBoid: {fileID: 2605185040178587719, guid: 982b2c8674c4ec1419181e9760025019,
     type: 3}
+  badBoid: {fileID: 2605185040178587719, guid: cf5221467bae3aa419fc940d84a3f08c, type: 3}
   boidScatteringRadius: 4.72
   boidVelocityModifier: 1.98
   rule1: 1

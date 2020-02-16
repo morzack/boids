@@ -5,7 +5,8 @@ using UnityEngine;
 public class BoidController : MonoBehaviour
 {
     public int boidCount = 50;
-    public GameObject boidPrefab;
+    public GameObject goodBoid;
+    public GameObject badBoid;
     public float boidScatteringRadius = 2; // we'll uniformly scatter boids in a shere of this size around the controller
     public float boidVelocityModifier = 3;
 
@@ -30,10 +31,16 @@ public class BoidController : MonoBehaviour
             eulerRotation *= 360;
             Quaternion rotation = Quaternion.Euler(eulerRotation.x, eulerRotation.y, eulerRotation.z);
             
-            GameObject createdBoid = Instantiate(boidPrefab, position+transform.position, rotation);
-            createdBoid.transform.parent = transform;
-            createdBoid.GetComponent<Rigidbody>().velocity = (Random.insideUnitSphere+velocityInitial) * boidVelocityModifier;
-            createdBoid.GetComponent<BoidBehavior>().environmentParent = environmentParent.transform;
+            if(Random.Range(0,5) == 0){
+                GameObject createdBoid = Instantiate(badBoid, position+transform.position, rotation);
+                createdBoid.transform.parent = transform;
+                createdBoid.GetComponent<Rigidbody>().velocity = (Random.insideUnitSphere+velocityInitial) * boidVelocityModifier;
+            } else{
+                GameObject createdBoid = Instantiate(goodBoid, position+transform.position, rotation);
+                createdBoid.transform.parent = transform;
+                createdBoid.GetComponent<Rigidbody>().velocity = (Random.insideUnitSphere+velocityInitial) * boidVelocityModifier;
+                createdBoid.GetComponent<BoidBehavior>().environmentParent = environmentParent.transform;
+            }
         }
     }
 
