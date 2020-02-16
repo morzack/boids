@@ -9,7 +9,7 @@ using UnityEngine;
 // Velocity Matching: attempt to match velocity with nearby flockmates
 // Flock Centering: attempt to stay close to nearby flockmates 
 
-public class BoidBehavior : MonoBehaviour
+public class BoidBehaviour : MonoBehaviour
 {
     public float visibilityRadius = 3;
 

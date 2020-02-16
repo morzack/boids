@@ -5,8 +5,7 @@ using UnityEngine;
 public class BoidController : MonoBehaviour
 {
     public int boidCount = 50;
-    public GameObject goodBoid;
-    public GameObject badBoid;
+    public GameObject boid;
     public float boidScatteringRadius = 2; // we'll uniformly scatter boids in a shere of this size around the controller
     public float boidVelocityModifier = 3;
 
@@ -24,23 +23,18 @@ public class BoidController : MonoBehaviour
     {
         Vector3 velocityInitial = Random.insideUnitSphere;
         // All we want to do is spawn in a bunch of boids so that they interact with each other
-        for (int i=0; i<boidCount; i++) {
+        for (int i = 0; i < boidCount; i++)
+        {
             Vector3 position = Random.insideUnitSphere * boidScatteringRadius;
 
             Vector3 eulerRotation = Random.insideUnitSphere;
             eulerRotation *= 360;
             Quaternion rotation = Quaternion.Euler(eulerRotation.x, eulerRotation.y, eulerRotation.z);
-            
-            if(Random.Range(0,5) == 0){
-                GameObject createdBoid = Instantiate(badBoid, position+transform.position, rotation);
-                createdBoid.transform.parent = transform;
-                createdBoid.GetComponent<Rigidbody>().velocity = (Random.insideUnitSphere+velocityInitial) * boidVelocityModifier;
-            } else{
-                GameObject createdBoid = Instantiate(goodBoid, position+transform.position, rotation);
-                createdBoid.transform.parent = transform;
-                createdBoid.GetComponent<Rigidbody>().velocity = (Random.insideUnitSphere+velocityInitial) * boidVelocityModifier;
-                createdBoid.GetComponent<BoidBehavior>().environmentParent = environmentParent.transform;
-            }
+
+            GameObject createdBoid = Instantiate(boid, position + transform.position, rotation);
+            createdBoid.transform.parent = transform;
+            createdBoid.GetComponent<Rigidbody>().velocity = (Random.insideUnitSphere + velocityInitial) * boidVelocityModifier;
+            createdBoid.GetComponent<BoidBehaviour>().environmentParent = environmentParent.transform;
         }
     }
 
@@ -48,21 +42,26 @@ public class BoidController : MonoBehaviour
     void Update()
     {
         bool changed = false;
-        if (rule1 != prevRule1) {
+        if (rule1 != prevRule1)
+        {
             prevRule1 = rule1;
             changed = true;
         }
-        if (rule2 != prevRule2) {
+        if (rule2 != prevRule2)
+        {
             prevRule2 = rule2;
             changed = true;
         }
-        if (rule3 != prevRule3) {
+        if (rule3 != prevRule3)
+        {
             prevRule3 = rule3;
             changed = true;
         }
-        if (changed) {
-            for (int i=0; i<transform.childCount; i++) {
-                BoidBehavior b = transform.GetChild(i).GetComponent<BoidBehavior>();
+        if (changed)
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                BoidBehaviour b = transform.GetChild(i).GetComponent<BoidBehaviour>();
                 b.rule1 = rule1;
                 b.rule2 = rule2;
                 b.rule3 = rule3;
