@@ -26,6 +26,8 @@ public class BadBehaviour : MonoBehaviour
 
     private List<Vector3> terrainPointsGizmo;
 
+    public GameObject preyParent;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,8 +44,6 @@ public class BadBehaviour : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        List<Transform> boidPrey = GetPreyInRadius(visibilityRadius);
-
         List<Vector3> terrainPoints = GetEnvironmentInRadius(visibilityRadius);
         this.terrainPointsGizmo = terrainPoints;
 
@@ -52,16 +52,19 @@ public class BadBehaviour : MonoBehaviour
         // Avoid terrain
         velocity += AvoidTerrainCollision(terrainPoints) / timeScale;
 
-        velocity = velocity + (((GetPrey().position - transform.position) * aggressiveness) / timeScale);
+        velocity = velocity + (((GetPrey() - transform.position) * aggressiveness) / timeScale);
 
         this.rb.velocity += velocity;
 
         transform.eulerAngles = this.rb.velocity;
     }
 
-    Transform GetPrey(){
-        List<Transform> boids = GetPreyInRadius(visibilityRadius);
-        Transform nearest = boids.OrderBy(t => (transform.position - t.position).sqrMagnitude).First();
+    Vector3 GetPrey(){
+        List<Vector3> boids = GetPreyInRadius(visibilityRadius);
+        if (boids.Count == 0) {
+            return transform.position;
+        }
+        Vector3 nearest = boids.OrderBy(t => Vector3.Distance(transform.position, t)).First();
         return nearest;
     } 
     Vector3 AvoidTerrainCollision(List<Vector3> terrainCollisions) {
@@ -73,17 +76,14 @@ public class BadBehaviour : MonoBehaviour
         return vel;
     }
 
-    List<Transform> GetPreyInRadius(float radius) {
-        List<Transform> boidList = new List<Transform>();
-        Collider[] boids = Physics.OverlapSphere(transform.position, radius, 1 << 8);
-
-        if (boids.Length > 0){
-            foreach (Collider b in boids){
-               boidList.Add(b.transform); 
+    List<Vector3> GetPreyInRadius(float radius) {
+        List<Vector3> boidList = new List<Vector3>();
+        for (int i=0; i<preyParent.transform.childCount; i++) {
+            Transform preyBoid = preyParent.transform.GetChild(i);
+            float distance = Vector3.Distance(preyBoid.position, transform.position);
+            if (distance < radius) {
+                boidList.Add(preyBoid.position);
             }
-        }
-        else{
-            boidList.Add(transform);
         }
         return boidList;
     }
@@ -108,7 +108,7 @@ public class BadBehaviour : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, visibilityRadius);
 
         // get nearest prey
-        Vector3 centerBoids = GetPrey().position;
+        Vector3 centerBoids = GetPrey();
         Gizmos.DrawSphere(centerBoids, .2f);
 
         // draw collisions with terrain

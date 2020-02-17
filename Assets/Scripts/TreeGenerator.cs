@@ -12,7 +12,7 @@ public class TreeGenerator : MonoBehaviour
     public float height;
     public Collider box;
     public GameObject environment;
-    public float numTrees;
+    public int numTrees;
     // Start is called before the first frame update
     void Start() {
         RaycastHit hit;

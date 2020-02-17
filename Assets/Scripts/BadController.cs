@@ -10,6 +10,7 @@ public class BadController : MonoBehaviour
     public float boidVelocityModifier = 3;
 
     public GameObject environmentParent;
+    public GameObject preyParent;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,7 @@ public class BadController : MonoBehaviour
             createdBoid.transform.parent = transform;
             createdBoid.GetComponent<Rigidbody>().velocity = (Random.insideUnitSphere+velocityInitial) * boidVelocityModifier;
             createdBoid.GetComponent<BadBehaviour>().environmentParent = environmentParent.transform;
+            createdBoid.GetComponent<BadBehaviour>().preyParent = preyParent;
         }
     }
 }
