@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 // most of the description about how the boids behave can be found here
 // https://www.cs.toronto.edu/~dt/siggraph97-course/cwr87/
@@ -45,7 +46,7 @@ public class BadBehaviour : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        List<Transform> boidBuddies = GetBoidsInRadius(visibilityRadius);
+        List<Transform> boidPrey = GetBoidsInRadius(visibilityRadius);
 
         List<Vector3> terrainPoints = GetEnvironmentInRadius(visibilityRadius);
         this.terrainPointsGizmo = terrainPoints;
@@ -60,6 +61,11 @@ public class BadBehaviour : MonoBehaviour
         transform.eulerAngles = this.rb.velocity;
     }
 
+    Transform GetPrey(){
+        List<Transform> boids = GetBoidsInRadius(visibilityRadius);
+        Transform nearest = boids.OrderBy(t => (transform.position - t.position).sqrMagnitude).First();
+        return nearest;
+    } 
     Vector3 AvoidTerrainCollision(List<Vector3> terrainCollisions) {
         Vector3 vel = new Vector3(0, 0, 0);
         foreach (Vector3 v in terrainCollisions) {
@@ -78,7 +84,6 @@ public class BadBehaviour : MonoBehaviour
                boidList.Add(b.transform); 
             }
         }
-        Debug.Log(boidList);
         return boidList;
     }
 
@@ -95,28 +100,14 @@ public class BadBehaviour : MonoBehaviour
         return environmentList;
     }
 
-    Vector3 GetCentroid(List<Transform> transforms) {
-        Vector3 centroid = new Vector3(0, 0, 0);
-        foreach (Transform otherTransform in transforms) {
-            centroid += otherTransform.position;
-        }
-        if (transforms.Count > 0) {
-            centroid /= transforms.Count;
-        } else {
-            centroid = transform.position;
-        }
-        return centroid;
-    }
-
     void OnDrawGizmosSelected()
     {
         // draw how far the boid can see when selected for testing
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, visibilityRadius);
 
-        // get center of boids and draw it
-        List<Transform> boidBuddies = GetBoidsInRadius(visibilityRadius);
-        Vector3 centerBoids = GetCentroid(boidBuddies);
+        // get nearest prey
+        Vector3 centerBoids = GetPrey().position;
         Gizmos.DrawSphere(centerBoids, .2f);
 
         // draw collisions with terrain

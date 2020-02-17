@@ -244,9 +244,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b6a156fbf9c1a4f99241305ccdbb00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boidCount: 1
+  boidCount: 100
   boid: {fileID: 2605185040178587719, guid: 982b2c8674c4ec1419181e9760025019, type: 3}
-  boidScatteringRadius: 1
+  boidScatteringRadius: 4.78
   boidVelocityModifier: 1.98
   rule1: 1
   rule2: 1
@@ -790,7 +790,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fd16e7d9000fab4faa856385e2311f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boidCount: 1
+  boidCount: 0
   boid: {fileID: 2605185040178587719, guid: cf5221467bae3aa419fc940d84a3f08c, type: 3}
   boidScatteringRadius: 1
   boidVelocityModifier: 1.98
