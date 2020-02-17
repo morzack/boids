@@ -62,6 +62,7 @@ MonoBehaviour:
   distanceKeepingTerrainModifier: 0.08
   timeScale: 0.58
   environmentParent: {fileID: 0}
+  raceGoalParent: {fileID: 0}
   maxMagnitude: 5
 --- !u!54 &-6151686217128597660
 Rigidbody:
