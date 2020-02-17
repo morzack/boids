@@ -244,9 +244,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b6a156fbf9c1a4f99241305ccdbb00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boidCount: 50
+  boidCount: 1
   boid: {fileID: 2605185040178587719, guid: 982b2c8674c4ec1419181e9760025019, type: 3}
-  boidScatteringRadius: 4.72
+  boidScatteringRadius: 1
   boidVelocityModifier: 1.98
   rule1: 1
   rule2: 1
@@ -260,7 +260,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 473664617}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.62, y: 14.3, z: 16.03}
+  m_LocalPosition: {x: 21.62, y: 16.46, z: 14.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -528,7 +528,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 931182821}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.25, y: 5.51, z: 2.37}
+  m_LocalPosition: {x: 0.25, y: 5.49, z: 2.37}
   m_LocalScale: {x: 21.07, y: 16.8, z: -0.019999996}
   m_Children: []
   m_Father: {fileID: 505882995}
@@ -729,10 +729,10 @@ MonoBehaviour:
   tree3: {fileID: 1912242262232640350, guid: 02a97368b710f804cabb601bb4c5cc09, type: 3}
   tree4: {fileID: 865239750784066991, guid: a8218625fba90f34fae40de956ea7f79, type: 3}
   tree5: {fileID: 873094839344546223, guid: a201f082f23b6974a88a4e280c957da4, type: 3}
-  height: 50
+  height: 10
   box: {fileID: 505882994}
   environment: {fileID: 505882993}
-  numTrees: 175
+  numTrees: 200
 --- !u!4 &1384843729
 Transform:
   m_ObjectHideFlags: 0
@@ -772,7 +772,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1495312522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -25.54, y: 18.9, z: -16.7}
+  m_LocalPosition: {x: 23.81, y: 16.67, z: 15.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -790,9 +790,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fd16e7d9000fab4faa856385e2311f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boidCount: 10
+  boidCount: 1
   boid: {fileID: 2605185040178587719, guid: cf5221467bae3aa419fc940d84a3f08c, type: 3}
-  boidScatteringRadius: 10
+  boidScatteringRadius: 1
   boidVelocityModifier: 1.98
   environmentParent: {fileID: 505882993}
 --- !u!1 &1726195747
@@ -915,8 +915,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1777462742}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -10.27, y: 1.34, z: 2.39}
-  m_LocalScale: {x: 16.7, y: 8.322415, z: -0.019999996}
+  m_LocalPosition: {x: -10.2, y: 1.34, z: 2.35}
+  m_LocalScale: {x: 16.907082, y: 8.322415, z: -0.019999996}
   m_Children: []
   m_Father: {fileID: 505882995}
   m_RootOrder: 4

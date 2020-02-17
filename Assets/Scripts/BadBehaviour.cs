@@ -18,8 +18,6 @@ public class BadBehaviour : MonoBehaviour
     public float distanceKeeping = 1;
     public float distanceKeepingModifier = .5f;
     public float matchingVelocityModifier = 8;
-
-    public float distanceKeepingTerrain = 1;
     public float distanceKeepingTerrainModifier = 1;
 
     public float timeScale = 10000;
@@ -28,6 +26,7 @@ public class BadBehaviour : MonoBehaviour
 
     public Transform environmentParent;
 
+    public Transform goodBoids;
     private List<Vector3> terrainPointsGizmo;
 
     // Start is called before the first frame update
@@ -72,16 +71,14 @@ public class BadBehaviour : MonoBehaviour
 
     List<Transform> GetBoidsInRadius(float radius) {
         List<Transform> boidList = new List<Transform>();
+        Collider[] boids = Physics.OverlapSphere(transform.position, radius, 1 << 8);
 
-        Transform parentBoid = transform.parent;
-        for (int i=0; i<parentBoid.childCount; i++) {
-            Transform child = parentBoid.GetChild(i);
-            float distance = Vector3.Distance(transform.position, child.position);
-            if (distance <= radius && distance > 0) {
-                boidList.Add(child);
+        if (boids.Length > 0){
+            foreach (Collider b in boids){
+               boidList.Add(b.transform); 
             }
         }
-
+        Debug.Log(boidList);
         return boidList;
     }
 
@@ -109,12 +106,6 @@ public class BadBehaviour : MonoBehaviour
             centroid = transform.position;
         }
         return centroid;
-    }
-
-    Vector3 GetEuler(Vector3 from, Vector3 to) {
-        Vector3 distanceVector = to-from;   
-        Quaternion lookVector = Quaternion.LookRotation(distanceVector, transform.up);
-        return lookVector.eulerAngles;
     }
 
     void OnDrawGizmosSelected()

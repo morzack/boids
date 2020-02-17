@@ -63,13 +63,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visibilityRadius: 3
   movementAmount: 0.06
-  distanceKeeping: 0.19
-  distanceKeepingModifier: 0.18
-  matchingVelocityModifier: 0.0075
-  distanceKeepingTerrain: 0.5
+  distanceKeeping: 1
+  distanceKeepingModifier: 0.5
+  matchingVelocityModifier: 8
   distanceKeepingTerrainModifier: 0.08
   timeScale: 0.58
   environmentParent: {fileID: 0}
+  goodBoids: {fileID: 7559423277444126145, guid: 6712d9ef1571359499c956361c3237c2,
+    type: 3}
 --- !u!1 &6270863270719408864
 GameObject:
   m_ObjectHideFlags: 0

@@ -166,7 +166,7 @@ public class BoidBehaviour : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         // draw how far the boid can see when selected for testing
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, visibilityRadius);
 
         // get center of boids and draw it
