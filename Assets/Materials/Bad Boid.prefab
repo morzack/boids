@@ -48,7 +48,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &-3050401584114827686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,13 +63,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visibilityRadius: 3
   movementAmount: 0.06
+  aggressiveness: 0.07
   distanceKeeping: 1
   distanceKeepingModifier: 0.5
   matchingVelocityModifier: 8
   distanceKeepingTerrainModifier: 0.08
   timeScale: 0.58
   environmentParent: {fileID: 0}
-  goodBoids: {fileID: 7559423277444126145, guid: 6712d9ef1571359499c956361c3237c2,
+  goodBoids: {fileID: 2605185040178587721, guid: 982b2c8674c4ec1419181e9760025019,
     type: 3}
 --- !u!1 &6270863270719408864
 GameObject:

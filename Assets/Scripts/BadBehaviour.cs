@@ -15,6 +15,7 @@ public class BadBehaviour : MonoBehaviour
     public float visibilityRadius = 3;
 
     public float movementAmount = 100;
+    public float aggressiveness = 1;
 
     public float distanceKeeping = 1;
     public float distanceKeepingModifier = .5f;
@@ -46,7 +47,7 @@ public class BadBehaviour : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        List<Transform> boidPrey = GetBoidsInRadius(visibilityRadius);
+        List<Transform> boidPrey = GetPreyInRadius(visibilityRadius);
 
         List<Vector3> terrainPoints = GetEnvironmentInRadius(visibilityRadius);
         this.terrainPointsGizmo = terrainPoints;
@@ -56,13 +57,15 @@ public class BadBehaviour : MonoBehaviour
         // Avoid terrain
         velocity += AvoidTerrainCollision(terrainPoints) / timeScale;
 
+        velocity += ((GetPrey().position - transform.position) * (aggressiveness / Vector3.Distance(transform.position, GetPrey().position))) / timeScale;
+
         this.rb.velocity += velocity;
 
         transform.eulerAngles = this.rb.velocity;
     }
 
     Transform GetPrey(){
-        List<Transform> boids = GetBoidsInRadius(visibilityRadius);
+        List<Transform> boids = GetPreyInRadius(visibilityRadius);
         Transform nearest = boids.OrderBy(t => (transform.position - t.position).sqrMagnitude).First();
         return nearest;
     } 
@@ -75,7 +78,7 @@ public class BadBehaviour : MonoBehaviour
         return vel;
     }
 
-    List<Transform> GetBoidsInRadius(float radius) {
+    List<Transform> GetPreyInRadius(float radius) {
         List<Transform> boidList = new List<Transform>();
         Collider[] boids = Physics.OverlapSphere(transform.position, radius, 1 << 8);
 
@@ -83,6 +86,9 @@ public class BadBehaviour : MonoBehaviour
             foreach (Collider b in boids){
                boidList.Add(b.transform); 
             }
+        }
+        else{
+            boidList.Add(transform);
         }
         return boidList;
     }
@@ -114,5 +120,11 @@ public class BadBehaviour : MonoBehaviour
         foreach (Vector3 v in this.terrainPointsGizmo) {
             Gizmos.DrawSphere(v, .1f);
         }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Eaten!");
+        Destroy(collision.collider.gameObject);
     }
 }
