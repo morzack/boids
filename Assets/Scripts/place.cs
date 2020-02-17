@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 public class place : MonoBehaviour
 {
@@ -10,31 +9,33 @@ public class place : MonoBehaviour
     public GameObject tree3;
     public GameObject tree4;
     public GameObject tree5;
-
-    public int range;
+    public float height;
+    public Collider box;
+    public float numTrees;
     // Start is called before the first frame update
     void Start() {
         RaycastHit hit;
-        GameObject tree = new GameObject();
-        Vector3 height = new Vector3(0, 4, 0);
-        for (int x = 0; x < 1000; x++){
-            transform.position = new Vector3(Random.Range(-range, range), 50, Random.Range(-range, range));
-            if (Physics.Raycast(transform.position, Vector3.down, out hit, 50, 1)){
+        GameObject tree;
+        Vector3 offset = new Vector3(0, 3, 0);
+        Bounds bounds = box.bounds;
+        for (int x = 0; x < numTrees; x++){
+            transform.position =  new Vector3(Random.Range(bounds.min.x, bounds.max.x),height,Random.Range(bounds.min.z, bounds.max.z));
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, height)){
                 switch(Random.Range(1,6)){
                     case 1:
-                        tree = PrefabUtility.InstantiatePrefab(tree1, hit.point + height) as GameObject;
+                        tree = Instantiate(tree1, hit.point + offset, Quaternion.identity);
                         break;
                     case 2:
-                        tree = PrefabUtility.InstantiatePrefab(tree2, hit.point + height) as GameObject;
+                        tree = Instantiate(tree2, hit.point + offset, Quaternion.identity);
                         break;
                     case 3:
-                        tree = PrefabUtility.InstantiatePrefab(tree3, hit.point + height) as GameObject;
+                        tree = Instantiate(tree3, hit.point + offset, Quaternion.identity);
                         break;
                     case 4:
-                        tree = PrefabUtility.InstantiatePrefab(tree4, hit.point + height) as GameObject;
+                        tree = Instantiate(tree4, hit.point + offset, Quaternion.identity);
                         break;
                     case 5:
-                        tree = PrefabUtility.InstantiatePrefab(tree5, hit.point + height) as GameObject;
+                        tree = Instantiate(tree5, hit.point + offset, Quaternion.identity);
                         break;
                 }
                 
