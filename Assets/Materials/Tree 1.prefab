@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 204897090840142145}
   - component: {fileID: 857479802529289410}
   - component: {fileID: 2868846095272617635}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: crown1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 2235313819975057483}
   - component: {fileID: 2846449054782083133}
   - component: {fileID: 5358429240490135272}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: Tree 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 8829890732318227961}
   - component: {fileID: 5956708017404526748}
   - component: {fileID: 1817720800374589223}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: trunk1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 6169466286135750152}
   - component: {fileID: 2914822222444810661}
   - component: {fileID: 109034108153213035}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: crown2.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
