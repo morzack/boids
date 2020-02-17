@@ -162,7 +162,7 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 137624271}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 3
   m_Convex: 1
@@ -244,7 +244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b6a156fbf9c1a4f99241305ccdbb00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boidCount: 35
+  boidCount: 100
   boid: {fileID: 2605185040178587719, guid: 982b2c8674c4ec1419181e9760025019, type: 3}
   boidScatteringRadius: 5
   boidVelocityModifier: 1.98
@@ -260,7 +260,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 473664617}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 10.39, z: 9.36}
+  m_LocalPosition: {x: -34.39, y: 19.08, z: 1.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -291,7 +291,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 505882993}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 17.600185, y: 1.5268272, z: 14.986007}
@@ -706,7 +706,7 @@ GameObject:
   - component: {fileID: 1384843729}
   - component: {fileID: 1384843728}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Tree Placer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -772,7 +772,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1495312522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.51, y: 10.39, z: 9.36}
+  m_LocalPosition: {x: 34.67, y: 14, z: 31.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -790,9 +790,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fd16e7d9000fab4faa856385e2311f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boidCount: 1
+  boidCount: 10
   boid: {fileID: 2605185040178587719, guid: cf5221467bae3aa419fc940d84a3f08c, type: 3}
-  boidScatteringRadius: 1
+  boidScatteringRadius: 10
   boidVelocityModifier: 2
   environmentParent: {fileID: 505882993}
 --- !u!1 &1726195747

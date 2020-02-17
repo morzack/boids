@@ -14,12 +14,8 @@ public class BadBehaviour : MonoBehaviour
 {
     public float visibilityRadius = 3;
 
-    public float movementAmount = 100;
     public float aggressiveness = 1;
 
-    public float distanceKeeping = 1;
-    public float distanceKeepingModifier = .5f;
-    public float matchingVelocityModifier = 8;
     public float distanceKeepingTerrainModifier = 1;
 
     public float timeScale = 10000;
@@ -28,7 +24,6 @@ public class BadBehaviour : MonoBehaviour
 
     public Transform environmentParent;
 
-    public Transform goodBoids;
     private List<Vector3> terrainPointsGizmo;
 
     // Start is called before the first frame update
@@ -57,7 +52,7 @@ public class BadBehaviour : MonoBehaviour
         // Avoid terrain
         velocity += AvoidTerrainCollision(terrainPoints) / timeScale;
 
-        velocity += ((GetPrey().position - transform.position) * (aggressiveness / Vector3.Distance(transform.position, GetPrey().position))) / timeScale;
+        velocity = velocity + (((GetPrey().position - transform.position) * aggressiveness) / timeScale);
 
         this.rb.velocity += velocity;
 
@@ -122,9 +117,12 @@ public class BadBehaviour : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("Eaten!");
-        Destroy(collision.collider.gameObject);
+    void OnTriggerEnter(Collider c){
+        if (c.gameObject.layer == 8){
+            Debug.Log("Eaten!");
+            AudioSource audio = gameObject.AddComponent<AudioSource>();
+            audio.PlayOneShot((AudioClip)Resources.Load("eat"));
+            Destroy(c.gameObject);
+        }
     }
 }

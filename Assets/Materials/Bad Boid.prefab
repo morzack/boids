@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2605185040178587721}
   - component: {fileID: -6151686217128597660}
   - component: {fileID: -3050401584114827686}
+  - component: {fileID: 8867677687115982060}
   m_Layer: 0
   m_Name: Bad Boid
   m_TagString: Untagged
@@ -48,7 +49,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
 --- !u!114 &-3050401584114827686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,16 +63,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visibilityRadius: 3
-  movementAmount: 0.06
-  aggressiveness: 0.07
-  distanceKeeping: 1
-  distanceKeepingModifier: 0.5
-  matchingVelocityModifier: 8
+  aggressiveness: 0.05
   distanceKeepingTerrainModifier: 0.08
   timeScale: 0.58
   environmentParent: {fileID: 0}
-  goodBoids: {fileID: 2605185040178587721, guid: 982b2c8674c4ec1419181e9760025019,
-    type: 3}
+--- !u!65 &8867677687115982060
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2605185040178587719}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.56584156, y: 0.5616591, z: 0.540791}
+  m_Center: {x: -0.0051274896, y: 0.0027998686, z: -0.002988249}
 --- !u!1 &6270863270719408864
 GameObject:
   m_ObjectHideFlags: 0
