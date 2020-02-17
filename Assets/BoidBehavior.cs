@@ -17,6 +17,13 @@ public class BoidBehavior : MonoBehaviour
     public bool rule2 = true;
     public bool rule3 = true;
 
+    public bool racing = false;
+    public float raceModifier = 0;
+    public Vector3 raceTarget;
+    public float raceDistance = 0;
+
+    public float individuality;
+
     public float movementAmount = 100;
 
     public float distanceKeeping = 1;
@@ -31,8 +38,11 @@ public class BoidBehavior : MonoBehaviour
     private Rigidbody rb;
 
     public Transform environmentParent;
+    public Transform raceGoalParent;
 
     private List<Vector3> terrainPointsGizmo;
+
+    public float maxMagnitude = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -72,10 +82,22 @@ public class BoidBehavior : MonoBehaviour
             velocity += Rule3(boidBuddies) * matchingVelocityModifier / timeScale;
         }
 
+        if (racing) {
+            velocity += RacingRule(raceTarget) / timeScale;
+        }
+
+        // apply individuality
+        velocity *= individuality;
+
         // Avoid terrain
         velocity += AvoidTerrainCollision(terrainPoints) / timeScale;
 
         this.rb.velocity += velocity;
+
+        // ensure we don't go too fast
+        if (this.rb.velocity.magnitude > maxMagnitude) {
+            this.rb.velocity = this.rb.velocity.normalized * maxMagnitude;
+        }
 
         transform.eulerAngles = this.rb.velocity;
     }
@@ -116,6 +138,11 @@ public class BoidBehavior : MonoBehaviour
         return vel;
     }
 
+    Vector3 RacingRule(Vector3 raceTarget) {
+        raceDistance = Vector3.Distance(transform.position, raceTarget);
+        return (raceTarget - transform.position) * raceModifier / (raceDistance!=0?raceDistance:0.00000f);
+    }
+
     List<Transform> GetBoidsInRadius(float radius) {
         List<Transform> boidList = new List<Transform>();
 
@@ -131,10 +158,10 @@ public class BoidBehavior : MonoBehaviour
         return boidList;
     }
 
-    List<Vector3> GetEnvironmentInRadius(float radius) {
+    List<Vector3> GetObjectsInRadius(float radius, Transform parent) {
         List<Vector3> environmentList = new List<Vector3>();
-        for (int i=0; i<environmentParent.childCount; i++) {
-            Transform child = environmentParent.GetChild(i);
+        for (int i=0; i<parent.childCount; i++) {
+            Transform child = parent.GetChild(i);
             Collider otherCollider = child.GetComponent<Collider>();
             Vector3 collisionPoint = otherCollider.ClosestPoint(transform.position); 
             if (Vector3.Distance(transform.position, collisionPoint) < radius) {
@@ -142,6 +169,15 @@ public class BoidBehavior : MonoBehaviour
             }
         }
         return environmentList;
+    }
+
+    List<Vector3> GetEnvironmentInRadius(float radius) {
+        List<Vector3> environmentObject = GetObjectsInRadius(radius, environmentParent);
+        if (racing) {
+            List<Vector3> raceGoals = GetObjectsInRadius(radius, raceGoalParent);
+            environmentObject.AddRange(raceGoals);
+        }
+        return environmentObject;
     }
 
     Vector3 GetCentroid(List<Transform> transforms) {

@@ -9,6 +9,16 @@ public class BoidController : MonoBehaviour
     public float boidScatteringRadius = 2; // we'll uniformly scatter boids in a shere of this size around the controller
     public float boidVelocityModifier = 3;
 
+    public float individualityDeviation = 1f; // deviation of individuality vector
+    public bool usingIndividuality = false;
+
+    public bool racing = false;
+    private int currentRaceTarget = 0;
+    public GameObject raceControllerRoot;
+    private float lastMinDistance = 0;
+    public float minRaceDistance = 1;
+    private bool updateRace = false;
+
     public bool rule1 = true;
     private bool prevRule1 = true;
     public bool rule2 = true;
@@ -30,15 +40,22 @@ public class BoidController : MonoBehaviour
             eulerRotation *= 360;
             Quaternion rotation = Quaternion.Euler(eulerRotation.x, eulerRotation.y, eulerRotation.z);
             
+            float individuality = Random.value*individualityDeviation;
+
             GameObject createdBoid = Instantiate(boidPrefab, position+transform.position, rotation);
             createdBoid.transform.parent = transform;
             createdBoid.GetComponent<Rigidbody>().velocity = (Random.insideUnitSphere+velocityInitial) * boidVelocityModifier;
-            createdBoid.GetComponent<BoidBehavior>().environmentParent = environmentParent.transform;
+
+            BoidBehavior behaviorComponent = createdBoid.GetComponent<BoidBehavior>();
+            behaviorComponent.environmentParent = environmentParent.transform;
+            behaviorComponent.raceGoalParent = raceControllerRoot.transform;
+            behaviorComponent.individuality = usingIndividuality?individuality:1;
+            behaviorComponent.racing = racing;
         }
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         bool changed = false;
         if (rule1 != prevRule1) {
@@ -53,13 +70,49 @@ public class BoidController : MonoBehaviour
             prevRule3 = rule3;
             changed = true;
         }
-        if (changed) {
-            for (int i=0; i<transform.childCount; i++) {
-                BoidBehavior b = transform.GetChild(i).GetComponent<BoidBehavior>();
+
+        Vector3 raceVector = new Vector3(0, 0, 0);
+
+        if (racing) {
+            if (updateRace) {
+                if (lastMinDistance < minRaceDistance) {
+                    // increment race counter logic
+                    currentRaceTarget += 1;
+                    if (currentRaceTarget >= raceControllerRoot.transform.childCount) {
+                        currentRaceTarget = 0;
+                    }
+                    lastMinDistance = 999;
+                }
+                updateRace = false;
+            }
+            else {
+                updateRace = true;
+            }
+            for (int i=0; i<raceControllerRoot.transform.childCount; i++) {
+                RaceController controller = raceControllerRoot.transform.GetChild(i).GetComponent<RaceController>();
+                int identifier = controller.raceNumber;
+                if (identifier == currentRaceTarget) {
+                    raceVector = controller.transform.position;
+                    controller.active = true;
+                } else {
+                    controller.active = false;
+                }
+            }
+        }
+
+        float currentRaceDistances = 999f;
+        for (int i=0; i<transform.childCount; i++) {
+            BoidBehavior b = transform.GetChild(i).GetComponent<BoidBehavior>();
+            if (changed) {
                 b.rule1 = rule1;
                 b.rule2 = rule2;
                 b.rule3 = rule3;
             }
+            b.raceTarget = raceVector;
+            if (currentRaceDistances > b.raceDistance) {
+                currentRaceDistances = b.raceDistance;
+            }
         }
+        lastMinDistance = currentRaceDistances;
     }
 }
