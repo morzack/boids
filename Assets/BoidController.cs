@@ -115,4 +115,13 @@ public class BoidController : MonoBehaviour
         }
         lastMinDistance = currentRaceDistances;
     }
+
+    public Vector3 GetCenter() {
+        Vector3 center = new Vector3(0, 0, 0);
+        for (int i=0; i<transform.childCount; i++) {
+            center += transform.GetChild(i).transform.position;
+        }
+        center /= transform.childCount;
+        return center;
+    }
 }
