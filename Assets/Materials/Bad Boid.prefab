@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2605185040178587721}
   - component: {fileID: -6151686217128597660}
   - component: {fileID: -3050401584114827686}
+  - component: {fileID: 8527584961451900850}
   m_Layer: 0
   m_Name: Bad Boid
   m_TagString: Untagged
@@ -61,12 +62,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89099ed6b998b4047b9e1db0553ab6f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visibilityRadius: 10.79
-  aggressiveness: 0.01
-  distanceKeepingTerrainModifier: 0.02
+  visibilityRadius: 5
+  aggressiveness: 0.02
+  distanceKeepingTerrainModifier: 0.07
+  terrainVisibility: 3
   timeScale: 0.58
   environmentParent: {fileID: 0}
   preyParent: {fileID: 0}
+--- !u!136 &8527584961451900850
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2605185040178587719}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.25023228
+  m_Height: 0.7023063
+  m_Direction: 2
+  m_Center: {x: -0.003364198, y: -0.00015366077, z: -0.081101954}
 --- !u!1 &6270863270719408864
 GameObject:
   m_ObjectHideFlags: 0

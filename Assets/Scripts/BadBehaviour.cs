@@ -18,6 +18,8 @@ public class BadBehaviour : MonoBehaviour
 
     public float distanceKeepingTerrainModifier = 1;
 
+    public float terrainVisibility = 3;
+
     public float timeScale = 10000;
 
     private Rigidbody rb;
@@ -44,7 +46,7 @@ public class BadBehaviour : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        List<Vector3> terrainPoints = GetEnvironmentInRadius(visibilityRadius);
+        List<Vector3> terrainPoints = GetEnvironmentInRadius(terrainVisibility);
         this.terrainPointsGizmo = terrainPoints;
 
         Vector3 velocity = new Vector3(0, 0, 0);

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2605185040178587721}
   - component: {fileID: 2605185040178587720}
   - component: {fileID: -6151686217128597660}
+  - component: {fileID: -4874884057737464179}
   m_Layer: 8
   m_Name: Good Boid
   m_TagString: Untagged
@@ -73,6 +74,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!136 &-4874884057737464179
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2605185040178587719}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.2731915
+  m_Height: 0.72969866
+  m_Direction: 2
+  m_Center: {x: -0.0038201213, y: -0.0024217367, z: -0.10393691}
 --- !u!1 &6270863270719408864
 GameObject:
   m_ObjectHideFlags: 0
